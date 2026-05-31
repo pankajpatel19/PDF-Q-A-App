@@ -1,4 +1,5 @@
 import { Chroma } from "@langchain/community/vectorstores/chroma";
+import { client } from "../config/chromadb.js";
 
 // Chroma only accepts string, number, boolean, or null as metadata values
 function sanitizeMetadata(metadata) {
@@ -18,6 +19,13 @@ function sanitizeMetadata(metadata) {
 }
 export async function storeEmbedds(chunks, embedder) {
   // Sanitize metadata on every chunk before passing to Chroma
+  try {
+    await client.deleteCollection({ name: "my_collection" });
+    console.log("collection deleted");
+  } catch (e) {
+    // collection exist nahi karta toh ignore karo
+  }
+
   const sanitizedChunks = chunks.map((doc) => ({
     ...doc,
     metadata: sanitizeMetadata(doc.metadata),

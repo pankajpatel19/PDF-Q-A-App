@@ -5,7 +5,6 @@ import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/
 
 export async function loadDocument({ path }) {
   const loader = new PDFLoader(path);
-  let text = "";
   const doc = await loader.load();
 
   const spliter = new RecursiveCharacterTextSplitter({
