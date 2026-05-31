@@ -1,5 +1,6 @@
 import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/hf";
 import { HUGGINGFACE_API_KEY } from "../env.js";
+import { storeEmbedds } from "./vector.js";
 
 const embedder = new HuggingFaceInferenceEmbeddings({
   apiKey: HUGGINGFACE_API_KEY,
@@ -8,11 +9,9 @@ const embedder = new HuggingFaceInferenceEmbeddings({
 
 export async function generateEmbedding(data) {
   try {
-    const text = data.map((docs) => docs.pageContent);
-    const embeddings = await embedder.embedDocuments(text);
-
-    console.log(embeddings);
+    // Pass original Document objects and the embedder instance — not raw strings or pre-computed vectors
+    await storeEmbedds(data, embedder);
   } catch (error) {
-    console.log("Embedd Error : ", error);
+    console.log("Embed Error : ", error);
   }
 }
