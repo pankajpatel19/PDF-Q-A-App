@@ -2,7 +2,7 @@ import { HuggingFaceInferenceEmbeddings } from "@langchain/community/embeddings/
 import { HUGGINGFACE_API_KEY } from "../env.js";
 import { storeEmbedds } from "./vector.js";
 
-const embedder = new HuggingFaceInferenceEmbeddings({
+export const embedder = new HuggingFaceInferenceEmbeddings({
   apiKey: HUGGINGFACE_API_KEY,
   model: "sentence-transformers/all-MiniLM-L6-v2",
 });

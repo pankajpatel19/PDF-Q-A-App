@@ -16,7 +16,6 @@ function sanitizeMetadata(metadata) {
   }
   return clean;
 }
-
 export async function storeEmbedds(chunks, embedder) {
   // Sanitize metadata on every chunk before passing to Chroma
   const sanitizedChunks = chunks.map((doc) => ({
@@ -28,6 +27,15 @@ export async function storeEmbedds(chunks, embedder) {
     collectionName: "my_collection",
     url: "http://localhost:8000", // local Docker Chroma
   });
+}
 
+export async function getRetriever(embedder) {
+  const vectorStore = await Chroma.fromExistingCollection(embedder, {
+    collectionName: "my_collection",
+    url: "http://localhost:8000",
+  });
+  if (!vectorStore) {
+    throw new Error("vector store is not initialized");
+  }
   return vectorStore.asRetriever();
 }

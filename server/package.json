@@ -14,6 +14,7 @@
   "dependencies": {
     "@chroma-core/default-embed": "^0.1.9",
     "@huggingface/inference": "^4.13.18",
+    "@langchain/classic": "^1.0.34",
     "@langchain/community": "^1.1.29",
     "@langchain/core": "^1.1.48",
     "@langchain/groq": "^1.2.1",
